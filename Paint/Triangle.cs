@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Paint
+{
+    class Triangle : Shape
+    {
+        public Triangle(Point shapeSize, Point shapeLocation, Color color, int colorIndex)
+        {
+            this.shapeSize = shapeSize;
+            this.shapeLocation = shapeLocation;
+            this.color = color;
+            this.colorIndex = colorIndex;
+            shapeIndex = 2;
+        }
+        public override void Draw(Graphics g, Brush b, int shapeLocationX, int shapeLocationY, int selectedShapeSizeX, int selectedShapeSizeY)
+        {
+            Brush brushWhite = new SolidBrush(Color.White);
+            Point[] points = new Point[3];
+            points[0] = new Point(shapeLocationX + selectedShapeSizeX / 2, shapeLocationY); // en üst orta
+            points[1] = new Point(shapeLocationX, shapeLocationY + selectedShapeSizeY); // en sol alt
+            points[2] = new Point(selectedShapeSizeX + shapeLocationX, selectedShapeSizeY + shapeLocationY); // en sağ alt
+
+            shapeSize = new Point(selectedShapeSizeX, selectedShapeSizeY);
+            shapeLocation = new Point(shapeLocationX, shapeLocationY);
+
+            g.FillRectangle(brushWhite, shapeLocationX - 1, shapeLocationY - 1, selectedShapeSizeX + 2, selectedShapeSizeY + 2);
+            g.FillPolygon(b, points);
+            
+        }
+    }
+}
